@@ -17,3 +17,6 @@ gwt-servlet.jar
 
 # OS-X
 .DS_Store
+/DragDrop/*.project
+/DragDrop/*.classpath
+/DragDrop/.settings
