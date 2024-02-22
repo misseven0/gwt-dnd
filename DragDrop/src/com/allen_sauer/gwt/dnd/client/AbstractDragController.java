@@ -13,16 +13,15 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
-
-import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * {@link DragController} which performs the bare essentials such as adding/removing styles,

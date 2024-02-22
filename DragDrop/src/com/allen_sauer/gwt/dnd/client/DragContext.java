@@ -13,13 +13,12 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.allen_sauer.gwt.dnd.client.drop.DropController;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Container class for context information about the current drag operation.

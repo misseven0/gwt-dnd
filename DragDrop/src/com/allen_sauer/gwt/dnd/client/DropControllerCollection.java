@@ -13,10 +13,8 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.Area;
@@ -24,9 +22,10 @@ import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Package private helper implementation class for {@link AbstractDragController} to track all

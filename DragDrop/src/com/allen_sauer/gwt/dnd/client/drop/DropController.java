@@ -13,10 +13,9 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.user.client.ui.Widget;
-
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Create a DropController for each drop target on which draggable widgets can be dropped. Do not

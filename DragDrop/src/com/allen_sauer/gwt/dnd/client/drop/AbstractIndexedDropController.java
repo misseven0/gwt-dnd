@@ -13,15 +13,14 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.user.client.ui.IndexedPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
-
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
+import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * A {@link DropController} for {@link IndexedPanel} drop targets.

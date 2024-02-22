@@ -13,10 +13,9 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
+import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.DragContext;
 
 /**
  * A {@link DropController} which constrains the placement of draggable widgets the grid specified

@@ -13,9 +13,9 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.allen_sauer.gwt.dnd.client.util.StringUtil;
-
 import java.util.EventObject;
+
+import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
 /**
  * Common implementation class for {@link DragStartEvent} and {@link DragEndEvent}.

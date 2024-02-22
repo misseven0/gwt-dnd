@@ -13,12 +13,8 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.InsertPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
@@ -28,9 +24,12 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.InsertPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /*
  * DragController used for drag-and-drop operations where a draggable widget or drag proxy is
