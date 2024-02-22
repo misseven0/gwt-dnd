@@ -25,49 +25,57 @@ import com.google.gwt.user.client.ui.Widget;
  * widget. Also keeps
  * track of the size of the widget borders and its inner width and height.
  */
-public class WidgetArea extends AbstractArea {
+public class WidgetArea extends AbstractArea
+{
 
-  public WidgetArea(Widget widget, Widget reference) {
-    setLeft(widget.getAbsoluteLeft());
-    setTop(widget.getAbsoluteTop());
+	public WidgetArea(Widget widget, Widget reference)
+	{
+		setLeft(widget.getAbsoluteLeft());
+		setTop(widget.getAbsoluteTop());
 
-    if (reference != null) {
-      setLeft(
-          getLeft() - reference.getAbsoluteLeft() - DOMUtil.getBorderLeft(reference.getElement()));
-      setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
-    }
-    setRight(getLeft() + widget.getOffsetWidth());
-    setBottom(getTop() + widget.getOffsetHeight());
+		if (reference != null)
+		{
+			setLeft(getLeft() - reference.getAbsoluteLeft() - DOMUtil.getBorderLeft(reference.getElement()));
+			setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
+		}
+		setRight(getLeft() + widget.getOffsetWidth());
+		setBottom(getTop() + widget.getOffsetHeight());
 
-    Element elem = widget.getElement().getOffsetParent();
-    Element p;
+		Element elem = widget.getElement().getOffsetParent();
+		Element p;
 
-    while (elem != null && (p = elem.getOffsetParent()) != null) {
-      if (!"visible".equals(DOMUtil.getEffectiveStyle(elem, "overflow"))) {
-        int left = elem.getAbsoluteLeft();
+		while (elem != null && (p = elem.getOffsetParent()) != null)
+		{
+			if (!"visible".equals(DOMUtil.getEffectiveStyle(elem, "overflow")))
+			{
+				int left = elem.getAbsoluteLeft();
 
-        if (getLeft() < left) {
-          setLeft(left);
-        }
+				if (getLeft() < left)
+				{
+					setLeft(left);
+				}
 
-        int top = elem.getAbsoluteTop();
-        if (getTop() < top) {
-          setTop(top);
-        }
+				int top = elem.getAbsoluteTop();
+				if (getTop() < top)
+				{
+					setTop(top);
+				}
 
-        int bottom = top + elem.getOffsetHeight();
-        if (getBottom() > bottom) {
-          setBottom(Math.max(getTop(), bottom));
-        }
+				int bottom = top + elem.getOffsetHeight();
+				if (getBottom() > bottom)
+				{
+					setBottom(Math.max(getTop(), bottom));
+				}
 
-        int right = left + elem.getOffsetWidth();
-        if (getRight() > right) {
-          setRight(Math.max(getLeft(), right));
-        }
-      }
+				int right = left + elem.getOffsetWidth();
+				if (getRight() > right)
+				{
+					setRight(Math.max(getLeft(), right));
+				}
+			}
 
-      elem = p;
-    }
-  }
+			elem = p;
+		}
+	}
 
 }

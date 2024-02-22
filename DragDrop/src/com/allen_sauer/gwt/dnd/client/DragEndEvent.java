@@ -19,26 +19,30 @@ import com.allen_sauer.gwt.dnd.client.util.StringUtil;
  * {@link java.util.EventObject} containing information about the end of a drag.
  */
 @SuppressWarnings("serial")
-public class DragEndEvent extends DragEvent {
+public class DragEndEvent extends DragEvent
+{
 
-  public DragEndEvent(DragContext context) {
-    super(context);
-  }
+	public DragEndEvent(DragContext context)
+	{
+		super(context);
+	}
 
-  /**
-   * Return a string representation of this event.
-   * 
-   * @return string representation of this event
-   */
-  @Override
-  public String toString() {
-    String dropTargetText;
-    if (context.finalDropController != null) {
-      dropTargetText = "dropTarget="
-          + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
-    } else {
-      dropTargetText = "[cancelled]";
-    }
-    return "DragEndEvent(" + dropTargetText + ", source=" + getSourceShortTypeName() + ")";
-  }
+	/**
+	 * Return a string representation of this event.
+	 * 
+	 * @return string representation of this event
+	 */
+	@Override
+	public String toString()
+	{
+		String dropTargetText;
+		if (context.finalDropController != null)
+		{
+			dropTargetText = "dropTarget=" + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
+		} else
+		{
+			dropTargetText = "[cancelled]";
+		}
+		return "DragEndEvent(" + dropTargetText + ", source=" + getSourceShortTypeName() + ")";
+	}
 }

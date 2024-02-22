@@ -17,19 +17,22 @@ package com.allen_sauer.gwt.dnd.client;
  * A class that implements this interface sources the events defined by the
  * {@link com.allen_sauer.gwt.dnd.client.DragHandler} interface.
  */
-public interface FiresDragEvents {
+public interface FiresDragEvents
+{
 
-  /**
-   * Add another {@link DragHandler} to listen for drag related events.
-   * 
-   * @param handler the handler to add
-   */
-  void addDragHandler(DragHandler handler);
+	/**
+	 * Add another {@link DragHandler} to listen for drag related events.
+	 * 
+	 * @param handler
+	 *            the handler to add
+	 */
+	void addDragHandler(DragHandler handler);
 
-  /**
-   * Remove a previously added {@link DragHandler}.
-   * 
-   * @param handler the handler to remove
-   */
-  void removeDragHandler(DragHandler handler);
+	/**
+	 * Remove a previously added {@link DragHandler}.
+	 * 
+	 * @param handler
+	 *            the handler to remove
+	 */
+	void removeDragHandler(DragHandler handler);
 }

@@ -18,59 +18,61 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 // CHECKSTYLE_OFF
-public interface DragClientBundle extends ClientBundle {
+public interface DragClientBundle extends ClientBundle
+{
 
-  interface DragCssResource extends CssResource {
+	interface DragCssResource extends CssResource
+	{
 
-    @ClassName("dragdrop-boundary")
-    public String boundary();
+		@ClassName("dragdrop-boundary")
+		public String boundary();
 
-    @ClassName("dragdrop-draggable")
-    public String draggable();
+		@ClassName("dragdrop-draggable")
+		public String draggable();
 
-    @ClassName("dragdrop-dragging")
-    public String dragging();
+		@ClassName("dragdrop-dragging")
+		public String dragging();
 
-    /**
-     * CSS style name applied to drop targets.
-     */
-    @ClassName("dragdrop-dropTarget")
-    public String dropTarget();
+		/**
+		 * CSS style name applied to drop targets.
+		 */
+		@ClassName("dragdrop-dropTarget")
+		public String dropTarget();
 
-    /**
-     * CSS style name which is applied to drop targets which are being actively engaged by the
-     * current drag operation.
-     */
-    @ClassName("dragdrop-dropTarget-engage")
-    public String dropTargetEngage();
+		/**
+		 * CSS style name which is applied to drop targets which are being
+		 * actively engaged by the current drag operation.
+		 */
+		@ClassName("dragdrop-dropTarget-engage")
+		public String dropTargetEngage();
 
-    @ClassName("dragdrop-flow-panel-positioner")
-    public String flowPanelPositioner();
+		@ClassName("dragdrop-flow-panel-positioner")
+		public String flowPanelPositioner();
 
-    @ClassName("dragdrop-handle")
-    public String handle();
+		@ClassName("dragdrop-handle")
+		public String handle();
 
-    /**
-     * CSS style name applied to movable panels.
-     */
-    @ClassName("dragdrop-movable-panel")
-    public String movablePanel();
+		/**
+		 * CSS style name applied to movable panels.
+		 */
+		@ClassName("dragdrop-movable-panel")
+		public String movablePanel();
 
-    @ClassName("dragdrop-positioner")
-    public String positioner();
+		@ClassName("dragdrop-positioner")
+		public String positioner();
 
-    /**
-     * CSS style name applied to drag proxies.
-     */
-    @ClassName("dragdrop-proxy")
-    public String proxy();
+		/**
+		 * CSS style name applied to drag proxies.
+		 */
+		@ClassName("dragdrop-proxy")
+		public String proxy();
 
-    @ClassName("dragdrop-selected")
-    public String selected();
-  }
+		@ClassName("dragdrop-selected")
+		public String selected();
+	}
 
-  static final DragClientBundle INSTANCE = GWT.create(DragClientBundle.class);
+	static final DragClientBundle INSTANCE = GWT.create(DragClientBundle.class);
 
-  @Source("gwt-dnd.css")
-  DragCssResource css();
+	@Source("gwt-dnd.css")
+	DragCssResource css();
 }

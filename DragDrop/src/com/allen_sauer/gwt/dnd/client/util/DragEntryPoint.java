@@ -19,17 +19,19 @@ import com.google.gwt.dom.client.StyleInjector;
 /**
  * Global initialization for gwt-dnd.
  */
-public class DragEntryPoint implements EntryPoint {
+public class DragEntryPoint implements EntryPoint
+{
 
-  private static native void setVersion()
-  /*-{
-    $wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
-  }-*/;
+	private static native void setVersion()
+	/*-{
+	$wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
+	}-*/;
 
-  @Override
-  public void onModuleLoad() {
-    setVersion();
-    StyleInjector.injectAtStart(DragClientBundle.INSTANCE.css().getText());
-  }
+	@Override
+	public void onModuleLoad()
+	{
+		setVersion();
+		StyleInjector.injectAtStart(DragClientBundle.INSTANCE.css().getText());
+	}
 
 }

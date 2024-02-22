@@ -16,26 +16,32 @@ package com.allen_sauer.gwt.dnd.client.util;
 /**
  * Shared String utility methods.
  */
-public class StringUtil {
+public class StringUtil
+{
 
-  /**
-   * Determined a short name from a class.
-   * @param clazz the Java class
-   * @return a short name for the class
-   */
-  public static String getShortTypeName(Class<?> clazz) {
-    String typeName = clazz.getName();
-    return typeName.substring(typeName.lastIndexOf('.') + 1);
-  }
+	/**
+	 * Determined a short name from a class.
+	 * 
+	 * @param clazz
+	 *            the Java class
+	 * @return a short name for the class
+	 */
+	public static String getShortTypeName(Class<?> clazz)
+	{
+		String typeName = clazz.getName();
+		return typeName.substring(typeName.lastIndexOf('.') + 1);
+	}
 
-  /**
-   * Return short classname of <code>obj</code>.
-   * 
-   * @param obj the object whose name is to be determined
-   * @return the short class name
-   */
-  public static String getShortTypeName(Object obj) {
-    String typeName = obj.getClass().getName();
-    return typeName.substring(typeName.lastIndexOf('.') + 1);
-  }
+	/**
+	 * Return short classname of <code>obj</code>.
+	 * 
+	 * @param obj
+	 *            the object whose name is to be determined
+	 * @return the short class name
+	 */
+	public static String getShortTypeName(Object obj)
+	{
+		String typeName = obj.getClass().getName();
+		return typeName.substring(typeName.lastIndexOf('.') + 1);
+	}
 }

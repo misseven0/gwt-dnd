@@ -16,25 +16,29 @@ package com.allen_sauer.gwt.dnd.client.util;
 /**
  * A position represented by a left (x) and top (y) coordinate.
  */
-public class CoordinateLocation extends AbstractLocation {
-  //CHECKSTYLE_JAVADOC_OFF
+public class CoordinateLocation extends AbstractLocation
+{
+	// CHECKSTYLE_JAVADOC_OFF
 
-  private int left;
+	private int left;
 
-  private int top;
+	private int top;
 
-  public CoordinateLocation(int left, int top) {
-    this.left = left;
-    this.top = top;
-  }
+	public CoordinateLocation(int left, int top)
+	{
+		this.left = left;
+		this.top = top;
+	}
 
-  @Override
-  public int getLeft() {
-    return left;
-  }
+	@Override
+	public int getLeft()
+	{
+		return left;
+	}
 
-  @Override
-  public int getTop() {
-    return top;
-  }
+	@Override
+	public int getTop()
+	{
+		return top;
+	}
 }

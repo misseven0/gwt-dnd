@@ -13,53 +13,69 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-public interface LocationWidgetComparator {
+public interface LocationWidgetComparator
+{
 
-  LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator() {
+	LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator()
+	{
 
-    @Override
-    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
-      return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
-    }
-  };
+		@Override
+		public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location)
+		{
+			return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
+		}
+	};
 
-  LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator() {
+	LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator()
+	{
 
-    @Override
-    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
-      return widgetArea.inBottomRight(location);
-    }
-  };
+		@Override
+		public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location)
+		{
+			return widgetArea.inBottomRight(location);
+		}
+	};
 
-  LocationWidgetComparator BOTTOM_LEFT_COMPARATOR = new LocationWidgetComparator() {
+	LocationWidgetComparator BOTTOM_LEFT_COMPARATOR = new LocationWidgetComparator()
+	{
 
-    @Override
-    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
-      return widgetArea.inBottomLeft(location);
-    }
-  };
+		@Override
+		public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location)
+		{
+			return widgetArea.inBottomLeft(location);
+		}
+	};
 
-  LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
+	LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator()
+	{
 
-    @Override
-    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
-      return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
-    }
-  };
+		@Override
+		public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location)
+		{
+			return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
+		}
+	};
 
-  LocationWidgetComparator LEFT_HALF_COMPARATOR = new LocationWidgetComparator() {
+	LocationWidgetComparator LEFT_HALF_COMPARATOR = new LocationWidgetComparator()
+	{
 
-    @Override
-    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
-      return location.getLeft() < widgetArea.getLeft() + widgetArea.getWidth() / 2;
-    }
-  };
+		@Override
+		public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location)
+		{
+			return location.getLeft() < widgetArea.getLeft() + widgetArea.getWidth() / 2;
+		}
+	};
 
-  /**
-   * Determine whether or not <code>location</code> indicates insertion following widgetArea.
-   * @param widgetArea the widget area to consider
-   * @param location the location to consider
-   * @return true if the location is indicates an index position following the widget
-   */
-  boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location);
+	/**
+	 * Determine whether or not <code>location</code> indicates insertion
+	 * following widgetArea.
+	 * 
+	 * @param widgetArea
+	 *            the widget area to consider
+	 * @param location
+	 *            the location to consider
+	 * @return true if the location is indicates an index position following the
+	 *         widget
+	 */
+	boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location);
 }

@@ -16,15 +16,17 @@ package com.allen_sauer.gwt.dnd.client;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Convenience interface which reduces {@link DragController#makeDraggable(Widget, Widget)} to
+ * Convenience interface which reduces
+ * {@link DragController#makeDraggable(Widget, Widget)} to
  * {@link DragController#makeDraggable(Widget)} for implementing classes.
  */
-public interface HasDragHandle {
+public interface HasDragHandle
+{
 
-  /**
-   * Method to return drag handle widget.
-   * 
-   * @return the drag handle widget
-   */
-  Widget getDragHandle();
+	/**
+	 * Method to return drag handle widget.
+	 * 
+	 * @return the drag handle widget
+	 */
+	Widget getDragHandle();
 }

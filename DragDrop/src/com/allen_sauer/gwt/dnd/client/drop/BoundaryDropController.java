@@ -21,53 +21,63 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel} which contains a
- * given draggable widget.
+ * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
+ * which contains a given draggable widget.
  */
-public class BoundaryDropController extends AbsolutePositionDropController {
+public class BoundaryDropController extends AbsolutePositionDropController
+{
 
-  private boolean allowDroppingOnBoundaryPanel = true;
+	private boolean allowDroppingOnBoundaryPanel = true;
 
-  public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDroppingOnBoundaryPanel) {
-    super(dropTarget);
-    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().boundary());
-    this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
-  }
+	public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDroppingOnBoundaryPanel)
+	{
+		super(dropTarget);
+		dropTarget.addStyleName(DragClientBundle.INSTANCE.css().boundary());
+		this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
+	}
 
-  /**
-   * Whether or not dropping on the boundary panel is permitted.
-   * 
-   * @return <code>true</code> if dropping on the boundary panel is allowed
-   */
-  public boolean getBehaviorBoundaryPanelDrop() {
-    return allowDroppingOnBoundaryPanel;
-  }
+	/**
+	 * Whether or not dropping on the boundary panel is permitted.
+	 * 
+	 * @return <code>true</code> if dropping on the boundary panel is allowed
+	 */
+	public boolean getBehaviorBoundaryPanelDrop()
+	{
+		return allowDroppingOnBoundaryPanel;
+	}
 
-  @Override
-  public void onPreviewDrop(DragContext context) throws VetoDragException {
-    if (!allowDroppingOnBoundaryPanel) {
-      throw new VetoDragException();
-    }
-    super.onPreviewDrop(context);
-  }
+	@Override
+	public void onPreviewDrop(DragContext context) throws VetoDragException
+	{
+		if (!allowDroppingOnBoundaryPanel)
+		{
+			throw new VetoDragException();
+		}
+		super.onPreviewDrop(context);
+	}
 
-  /**
-   * Set whether or not widgets may be dropped anywhere on the boundary panel. Set to
-   * <code>false</code> when you only want explicitly registered drop controllers to accept drops.
-   * Defaults to <code>true</code>.
-   * 
-   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
-   */
-  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
-    this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
-  }
+	/**
+	 * Set whether or not widgets may be dropped anywhere on the boundary panel.
+	 * Set to <code>false</code> when you only want explicitly registered drop
+	 * controllers to accept drops. Defaults to <code>true</code>.
+	 * 
+	 * @param allowDroppingOnBoundaryPanel
+	 *            <code>true</code> to allow dropping
+	 */
+	public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel)
+	{
+		this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
+	}
 
-  @Override
-  Widget makePositioner(Widget reference) {
-    if (allowDroppingOnBoundaryPanel) {
-      return super.makePositioner(reference);
-    } else {
-      return new SimplePanel();
-    }
-  }
+	@Override
+	Widget makePositioner(Widget reference)
+	{
+		if (allowDroppingOnBoundaryPanel)
+		{
+			return super.makePositioner(reference);
+		} else
+		{
+			return new SimplePanel();
+		}
+	}
 }

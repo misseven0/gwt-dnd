@@ -28,54 +28,61 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
-public class VerticalPanelDropController extends AbstractInsertPanelDropController {
+public class VerticalPanelDropController extends AbstractInsertPanelDropController
+{
 
-  /**
-   * Label for IE quirks mode workaround.
-   */
-  private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
+	/**
+	 * Label for IE quirks mode workaround.
+	 */
+	private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
-  /**
-   * Construct an {@link VerticalPanelDropController}.
-   * 
-   * @param dropTarget the {@link VerticalPanel} drop target
-   */
-  public VerticalPanelDropController(VerticalPanel dropTarget) {
-    super(dropTarget);
-  }
+	/**
+	 * Construct an {@link VerticalPanelDropController}.
+	 * 
+	 * @param dropTarget
+	 *            the {@link VerticalPanel} drop target
+	 */
+	public VerticalPanelDropController(VerticalPanel dropTarget)
+	{
+		super(dropTarget);
+	}
 
-  @Override
-  protected LocationWidgetComparator getLocationWidgetComparator() {
-    return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
-  }
+	@Override
+	protected LocationWidgetComparator getLocationWidgetComparator()
+	{
+		return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
+	}
 
-  @Override
-  protected Widget newPositioner(DragContext context) {
-    // Use two widgets so that setPixelSize() consistently affects dimensions
-    // excluding positioner border in quirks and strict modes
-    SimplePanel outer = new SimplePanel();
-    outer.addStyleName(DragClientBundle.INSTANCE.css().positioner());
+	@Override
+	protected Widget newPositioner(DragContext context)
+	{
+		// Use two widgets so that setPixelSize() consistently affects
+		// dimensions
+		// excluding positioner border in quirks and strict modes
+		SimplePanel outer = new SimplePanel();
+		outer.addStyleName(DragClientBundle.INSTANCE.css().positioner());
 
-    // place off screen for border calculation
-    RootPanel.get().add(outer, -500, -500);
+		// place off screen for border calculation
+		RootPanel.get().add(outer, -500, -500);
 
-    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
-    // DOMUtil.getVerticalBorders(outer)
-    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
+		// Ensure IE quirks mode returns valid outer.offsetHeight, and thus
+		// valid
+		// DOMUtil.getVerticalBorders(outer)
+		outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
 
-    int width = 0;
-    int height = 0;
-    for (Widget widget : context.selectedWidgets) {
-      width = Math.max(width, widget.getOffsetWidth());
-      height += widget.getOffsetHeight();
-    }
+		int width = 0;
+		int height = 0;
+		for (Widget widget : context.selectedWidgets)
+		{
+			width = Math.max(width, widget.getOffsetWidth());
+			height += widget.getOffsetHeight();
+		}
 
-    SimplePanel inner = new SimplePanel();
-    inner.setPixelSize(width - DOMUtil.getHorizontalBorders(outer), height
-        - DOMUtil.getVerticalBorders(outer));
+		SimplePanel inner = new SimplePanel();
+		inner.setPixelSize(width - DOMUtil.getHorizontalBorders(outer), height - DOMUtil.getVerticalBorders(outer));
 
-    outer.setWidget(inner);
+		outer.setWidget(inner);
 
-    return outer;
-  }
+		return outer;
+	}
 }

@@ -14,25 +14,30 @@
 package com.allen_sauer.gwt.dnd.client;
 
 /**
- * Convenience class for anonymous inner classes not wishing to define all methods required by the
- * {@link DragHandler} interface.
+ * Convenience class for anonymous inner classes not wishing to define all
+ * methods required by the {@link DragHandler} interface.
  */
-public class DragHandlerAdapter implements DragHandler {
+public class DragHandlerAdapter implements DragHandler
+{
 
-  @Override
-  public void onDragEnd(DragEndEvent event) {
-  }
+	@Override
+	public void onDragEnd(DragEndEvent event)
+	{
+	}
 
-  @Override
-  public void onDragStart(DragStartEvent event) {
-  }
+	@Override
+	public void onDragStart(DragStartEvent event)
+	{
+	}
 
-  @Override
-  public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
-  }
+	@Override
+	public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException
+	{
+	}
 
-  @Override
-  public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
-  }
+	@Override
+	public void onPreviewDragStart(DragStartEvent event) throws VetoDragException
+	{
+	}
 
 }

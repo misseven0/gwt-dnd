@@ -16,19 +16,24 @@ package com.allen_sauer.gwt.dnd.client.drop;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
- * A {@link DropController} which allows a draggable widget to be placed at valid positions
- * (locations) on the drop target, such as {@link com.google.gwt.user.client.ui.AbsolutePanel},
+ * A {@link DropController} which allows a draggable widget to be placed at
+ * valid positions (locations) on the drop target, such as
+ * {@link com.google.gwt.user.client.ui.AbsolutePanel},
  * {@link com.google.gwt.user.client.ui.VerticalPanel} or
- * {@link com.google.gwt.user.client.ui.HorizontalPanel}. Which positions are valid is determined
- * by the implementing subclass.
+ * {@link com.google.gwt.user.client.ui.HorizontalPanel}. Which positions are
+ * valid is determined by the implementing subclass.
  */
-public abstract class AbstractPositioningDropController extends AbstractDropController {
+public abstract class AbstractPositioningDropController extends AbstractDropController
+{
 
-  /**
-   * Constructor.
-   * @param dropTarget the drop target to use
-   */
-  public AbstractPositioningDropController(Panel dropTarget) {
-    super(dropTarget);
-  }
+	/**
+	 * Constructor.
+	 * 
+	 * @param dropTarget
+	 *            the drop target to use
+	 */
+	public AbstractPositioningDropController(Panel dropTarget)
+	{
+		super(dropTarget);
+	}
 }

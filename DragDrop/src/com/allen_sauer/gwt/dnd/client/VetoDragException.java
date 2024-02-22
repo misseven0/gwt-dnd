@@ -14,15 +14,17 @@
 package com.allen_sauer.gwt.dnd.client;
 
 /**
- * A VetoDragException is thrown by {@link DragHandler DragHandlers} when the proposed operation is
- * unacceptable.
+ * A VetoDragException is thrown by {@link DragHandler DragHandlers} when the
+ * proposed operation is unacceptable.
  */
 @SuppressWarnings("serial")
-public class VetoDragException extends Exception {
+public class VetoDragException extends Exception
+{
 
-  /**
-   * Default constructor.
-   */
-  public VetoDragException() {
-  }
+	/**
+	 * Default constructor.
+	 */
+	public VetoDragException()
+	{
+	}
 }

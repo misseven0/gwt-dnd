@@ -7,7 +7,8 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @see PickupDragController#setBehaviorDragProxy(boolean)
  */
-public interface HasDragProxy {
+public interface HasDragProxy
+{
 
 	/**
 	 * Method to return drag proxy widget.

@@ -16,22 +16,25 @@ package com.allen_sauer.gwt.dnd.client.util;
 /**
  * Provides default method implementations.
  */
-public abstract class AbstractLocation implements Location {
+public abstract class AbstractLocation implements Location
+{
 
-  @Override
-  public Location newLocationSnappedToGrid(int gridX, int gridY) {
-    int left = Math.round((float) getLeft() / gridX) * gridX;
-    int top = Math.round((float) getTop() / gridY) * gridY;
-    return new CoordinateLocation(left, top);
-  }
+	@Override
+	public Location newLocationSnappedToGrid(int gridX, int gridY)
+	{
+		int left = Math.round((float) getLeft() / gridX) * gridX;
+		int top = Math.round((float) getTop() / gridY) * gridY;
+		return new CoordinateLocation(left, top);
+	}
 
-  /**
-   * Textual representation of this location formatted as <code>(x, y)</code>.
-   * 
-   * @return a string representation of this location
-   */
-  @Override
-  public String toString() {
-    return "(" + getLeft() + ", " + getTop() + ")";
-  }
+	/**
+	 * Textual representation of this location formatted as <code>(x, y)</code>.
+	 * 
+	 * @return a string representation of this location
+	 */
+	@Override
+	public String toString()
+	{
+		return "(" + getLeft() + ", " + getTop() + ")";
+	}
 }

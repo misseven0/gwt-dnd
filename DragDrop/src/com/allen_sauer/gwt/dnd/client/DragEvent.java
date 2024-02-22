@@ -18,28 +18,33 @@ import java.util.EventObject;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
 /**
- * Common implementation class for {@link DragStartEvent} and {@link DragEndEvent}.
+ * Common implementation class for {@link DragStartEvent} and
+ * {@link DragEndEvent}.
  */
 @SuppressWarnings("serial")
-abstract class DragEvent extends EventObject {
+abstract class DragEvent extends EventObject
+{
 
-  final transient DragContext context;
+	final transient DragContext context;
 
-  DragEvent(DragContext context) {
-    super(context.draggable);
-    this.context = context;
-  }
+	DragEvent(DragContext context)
+	{
+		super(context.draggable);
+		this.context = context;
+	}
 
-  /**
-   * Get the drag context for the drag operation.
-   * 
-   * @return the drag context
-   */
-  public DragContext getContext() {
-    return context;
-  }
+	/**
+	 * Get the drag context for the drag operation.
+	 * 
+	 * @return the drag context
+	 */
+	public DragContext getContext()
+	{
+		return context;
+	}
 
-  String getSourceShortTypeName() {
-    return StringUtil.getShortTypeName(getSource());
-  }
+	String getSourceShortTypeName()
+	{
+		return StringUtil.getShortTypeName(getSource());
+	}
 }

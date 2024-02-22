@@ -23,25 +23,29 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
  */
-public class FlowPanelDropController extends AbstractInsertPanelDropController {
+public class FlowPanelDropController extends AbstractInsertPanelDropController
+{
 
-  /**
-   * @param dropTarget the flow panel drop target
-   */
-  public FlowPanelDropController(FlowPanel dropTarget) {
-    super(dropTarget);
-  }
+	/**
+	 * @param dropTarget
+	 *            the flow panel drop target
+	 */
+	public FlowPanelDropController(FlowPanel dropTarget)
+	{
+		super(dropTarget);
+	}
 
-  @Override
-  protected LocationWidgetComparator getLocationWidgetComparator() {
-    return isRtl() ? LocationWidgetComparator.BOTTOM_LEFT_COMPARATOR
-        : LocationWidgetComparator.BOTTOM_RIGHT_COMPARATOR;
-  }
+	@Override
+	protected LocationWidgetComparator getLocationWidgetComparator()
+	{
+		return isRtl() ? LocationWidgetComparator.BOTTOM_LEFT_COMPARATOR : LocationWidgetComparator.BOTTOM_RIGHT_COMPARATOR;
+	}
 
-  @Override
-  protected Widget newPositioner(DragContext context) {
-    HTML positioner = new HTML("&#x203B;");
-    positioner.addStyleName(DragClientBundle.INSTANCE.css().flowPanelPositioner());
-    return positioner;
-  }
+	@Override
+	protected Widget newPositioner(DragContext context)
+	{
+		HTML positioner = new HTML("&#x203B;");
+		positioner.addStyleName(DragClientBundle.INSTANCE.css().flowPanelPositioner());
+		return positioner;
+	}
 }

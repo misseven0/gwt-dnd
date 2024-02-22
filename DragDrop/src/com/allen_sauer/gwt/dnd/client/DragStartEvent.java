@@ -14,25 +14,29 @@
 package com.allen_sauer.gwt.dnd.client;
 
 /**
- * {@link java.util.EventObject} containing information about the start of a drag.
+ * {@link java.util.EventObject} containing information about the start of a
+ * drag.
  */
 @SuppressWarnings("serial")
-public class DragStartEvent extends DragEvent {
+public class DragStartEvent extends DragEvent
+{
 
-  public DragStartEvent(DragContext context) {
-    super(context);
-    assert context.vetoException == null;
-    assert context.dropController == null;
-    assert context.finalDropController == null;
-  }
+	public DragStartEvent(DragContext context)
+	{
+		super(context);
+		assert context.vetoException == null;
+		assert context.dropController == null;
+		assert context.finalDropController == null;
+	}
 
-  /**
-   * Return a string representation of this event.
-   * 
-   * @return string representation of this event
-   */
-  @Override
-  public String toString() {
-    return "DragStartEvent(source=" + getSourceShortTypeName() + ")";
-  }
+	/**
+	 * Return a string representation of this event.
+	 * 
+	 * @return string representation of this event
+	 */
+	@Override
+	public String toString()
+	{
+		return "DragStartEvent(source=" + getSourceShortTypeName() + ")";
+	}
 }

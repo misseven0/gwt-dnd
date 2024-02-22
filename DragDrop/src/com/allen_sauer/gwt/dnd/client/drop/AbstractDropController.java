@@ -20,47 +20,59 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Base class for typical drop controllers. Contains some basic functionality like adjust widget
- * styles.
+ * Base class for typical drop controllers. Contains some basic functionality
+ * like adjust widget styles.
  */
-public abstract class AbstractDropController implements DropController {
-  // CHECKSTYLE_JAVADOC_OFF
+public abstract class AbstractDropController implements DropController
+{
+	// CHECKSTYLE_JAVADOC_OFF
 
-  /**
-   * The drop target.
-   */
-  private Widget dropTarget;
+	/**
+	 * The drop target.
+	 */
+	private Widget dropTarget;
 
-  public AbstractDropController(Widget dropTarget) {
-    this.dropTarget = dropTarget;
-    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTarget());
-  }
+	public AbstractDropController(Widget dropTarget)
+	{
+		this.dropTarget = dropTarget;
+		dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTarget());
+	}
 
-  @Override
-  public Widget getDropTarget() {
-    return dropTarget;
-  }
+	@Override
+	public Widget getDropTarget()
+	{
+		return dropTarget;
+	}
 
-  boolean isRtl() {
-    return DOMUtil.isRtl(dropTarget);
-  }
+	boolean isRtl()
+	{
+		return DOMUtil.isRtl(dropTarget);
+	}
 
-  @Override
-  public void onDrop(DragContext context) {}
+	@Override
+	public void onDrop(DragContext context)
+	{
+	}
 
-  @Override
-  public void onEnter(DragContext context) {
-    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
-  }
+	@Override
+	public void onEnter(DragContext context)
+	{
+		dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
+	}
 
-  @Override
-  public void onLeave(DragContext context) {
-    dropTarget.removeStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
-  }
+	@Override
+	public void onLeave(DragContext context)
+	{
+		dropTarget.removeStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
+	}
 
-  @Override
-  public void onMove(DragContext context) {}
+	@Override
+	public void onMove(DragContext context)
+	{
+	}
 
-  @Override
-  public void onPreviewDrop(DragContext context) throws VetoDragException {}
+	@Override
+	public void onPreviewDrop(DragContext context) throws VetoDragException
+	{
+	}
 }
