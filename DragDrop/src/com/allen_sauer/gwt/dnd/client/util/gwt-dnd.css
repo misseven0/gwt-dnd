@@ -1,36 +1,37 @@
 @CHARSET "UTF-8";
 
-@external .dragdrop-dropTarget;
+@external .dragdrop-dropTarget; 
 @external .dragdrop-dropTarget-engage;
-@external .dragdrop-flow-panel-positioner;
-@external .dragdrop-positioner;
-@external .dragdrop-boundary;
-@external .dragdrop-handle;
-@external .dragdrop-draggable;
-@external .dragdrop-selected;
-@external .dragdrop-dragging;
-@external .dragdrop-proxy;
-@external .dragdrop-movable-panel;
-	
-HTML { /* Workaround for GWT issue 1932 */
+@external .dragdrop-flow-panel-positioner; 
+@external .dragdrop-positioner; 
+@external .dragdrop-boundary; 
+@external .dragdrop-handle; 
+@external .dragdrop-draggable; 
+@external .dragdrop-selected; 
+@external .dragdrop-dragging; 
+@external .dragdrop-proxy; 
+@external .dragdrop-movable-panel; 
+
+HTML {/* Workaround for GWT issue 1932 */
 	margin: 0px !important;
 	border: none !important;
 }
 
 .dragdrop-boundary {
+	
 }
 
 .dragdrop-dropTarget-engage {
+	
 }
 
 .dragdrop-dropTarget {
+	
 }
 
 .dragdrop-handle {
-	cursor: move;
+	cursor: pointer;
 	user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
 }
 
 .dragdrop-draggable {
@@ -57,18 +58,19 @@ HTML { /* Workaround for GWT issue 1932 */
 
 .dragdrop-proxy {
 	background-color: #77AAFF; /* light blue */
+	z-index: 2000;
 }
 
-.dragdrop-selected,.dragdrop-dragging,.dragdrop-proxy {
-	-webkit-filter: opacity(.3);
-	-moz-opacity: 0.3;
-	-khtml-opacity: 0.3;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-	opacity: 0.3;
+.dragdrop-selected {
+	opacity: 0.9;
+}
+
+.dragdrop-dragging, .dragdrop-proxy {
+	/**box-shadow: 0 0 0 2px #0099FF, 0 0 4px rgba(0, 0, 0, .3);*/
 }
 
 .dragdrop-movable-panel {
-	z-index: 200;
+	z-index: 2000;
 	margin: 0px !important;
 	border: none !important;
 }

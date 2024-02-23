@@ -24,7 +24,9 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
+import com.google.gwt.animation.client.Animation;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.InsertPanel;
@@ -97,6 +99,24 @@ public class PickupDragController extends AbstractDragController
 
 	private HashMap<Widget, SavedWidgetInfo> savedWidgetInfoMap;
 
+	public static enum DragMoveDirection
+	{
+		XY, X_ONLY, Y_ONLY
+	}
+
+	// 限制移动方向
+	private DragMoveDirection dragMoveDirection = DragMoveDirection.XY;
+
+	public DragMoveDirection getBehaviorDragMoveDirection()
+	{
+		return dragMoveDirection;
+	}
+
+	public void setBehaviorDragMoveDirection(DragMoveDirection dragMoveDirection)
+	{
+		this.dragMoveDirection = dragMoveDirection;
+	}
+
 	/**
 	 * Create a new pickup-and-move style drag controller. Allows widgets or a
 	 * suitable proxy to be temporarily picked up and moved around the specified
@@ -123,84 +143,77 @@ public class PickupDragController extends AbstractDragController
 		dropControllerCollection = new DropControllerCollection(dropControllerList);
 	}
 
-	@Override
-	public void dragEnd()
+	/** 移动面板原始位置,即刚开始拖动时候的位置; TODO 错误处理 */
+	private WidgetLocation movablePanelOriginalLocation;
+
+	public Command restoreAnimationCompleteCommand;
+
+	protected Animation restoreAnimation = new Animation()
 	{
-		assert context.finalDropController == null == (context.vetoException != null);
-		if (context.vetoException != null)
+		/** 动画启动时候移动面板的位置 */
+		private WidgetLocation movablePanleAnimationStartLocation;
+
+		/** 需要被移动的X距离 */
+		private int offsetX;
+
+		/** 需要被移动的X距离 */
+		private int offsetY;
+
+		@Override
+		protected void onStart()
 		{
-			context.dropController.onLeave(context);
-			context.dropController = null;
+			movablePanleAnimationStartLocation = new WidgetLocation(movablePanel, context.boundaryPanel);
+			offsetX = movablePanleAnimationStartLocation.getLeft() - movablePanelOriginalLocation.getLeft();
+			offsetY = movablePanleAnimationStartLocation.getTop() - movablePanelOriginalLocation.getTop();
+		}
+
+		@Override
+		protected void onUpdate(double progress)
+		{
+			DOMUtil.fastSetElementPosition(movablePanel.getElement(),
+					(int) (movablePanleAnimationStartLocation.getLeft() - progress * offsetX),
+					(int) (movablePanleAnimationStartLocation.getTop() - progress * offsetY));
+		}
+
+		@Override
+		protected void onComplete()
+		{
 			if (!getBehaviorDragProxy())
 			{
 				restoreSelectedWidgetsLocation();
+				restoreSelectedWidgetsStyle();
 			}
-		} else
-		{
-			context.dropController.onDrop(context);
-			context.dropController.onLeave(context);
-			context.dropController = null;
-		}
-
-		if (!getBehaviorDragProxy())
-		{
-			restoreSelectedWidgetsStyle();
-		}
-		movablePanel.removeFromParent();
-		movablePanel = null;
-		super.dragEnd();
-	}
-
-	@Override
-	public void dragMove()
-	{
-		// may have changed due to scrollIntoView(), developer driven changes
-		// or manual user scrolling
-		long timeMillis = System.currentTimeMillis();
-		if (timeMillis - lastResetCacheTimeMillis >= CACHE_TIME_MILLIS)
-		{
-			lastResetCacheTimeMillis = timeMillis;
-			resetCache();
-			calcBoundaryOffset();
-		}
-
-		int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
-		int desiredTop = context.desiredDraggableY - boundaryOffsetY;
-		if (getBehaviorConstrainedToBoundaryPanel())
-		{
-			desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
-			desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
-		}
-
-		DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);
-
-		DropController newDropController = getIntersectDropController(context.mouseX, context.mouseY);
-		if (context.dropController != newDropController)
-		{
-			if (context.dropController != null)
+			if (movablePanel != null)
 			{
-				context.dropController.onLeave(context);
+				movablePanel.removeFromParent();
 			}
-			context.dropController = newDropController;
-			if (context.dropController != null)
+			movablePanel = null;
+			if (restoreAnimationCompleteCommand != null)
 			{
-				context.dropController.onEnter(context);
+				restoreAnimationCompleteCommand.execute();
 			}
 		}
-
-		if (context.dropController != null)
-		{
-			context.dropController.onMove(context);
-		}
-	}
+	};
 
 	@Override
 	public void dragStart()
 	{
+		GWT.log("dragStart");
+
+		if (restoreAnimationEnable)
+		{
+			restoreAnimation.cancel();
+		}
 		super.dragStart();
 
 		lastResetCacheTimeMillis = System.currentTimeMillis();
 		WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, context.boundaryPanel);
+
+		if (restoreAnimationEnable)
+		{
+			movablePanelOriginalLocation = currentDraggableLocation;
+		}
+
 		if (getBehaviorDragProxy())
 		{
 			movablePanel = newDragProxy(context);
@@ -244,6 +257,112 @@ public class PickupDragController extends AbstractDragController
 		dropTargetClientWidth = DOMUtil.getClientWidth(boundaryPanel.getElement());
 		dropTargetClientHeight = DOMUtil.getClientHeight(boundaryPanel.getElement());
 
+	}
+
+	@Override
+	public void dragMove()
+	{
+		GWT.log("dragMove");
+		// may have changed due to scrollIntoView(), developer driven changes
+		// or manual user scrolling
+		long timeMillis = System.currentTimeMillis();
+		if (timeMillis - lastResetCacheTimeMillis >= CACHE_TIME_MILLIS)
+		{
+			lastResetCacheTimeMillis = timeMillis;
+			resetCache();
+			calcBoundaryOffset();
+		}
+
+		int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
+		int desiredTop = context.desiredDraggableY - boundaryOffsetY;
+		if (getBehaviorConstrainedToBoundaryPanel())
+		{
+			desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
+			desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
+		}
+
+		if (dragMoveDirection == DragMoveDirection.X_ONLY)
+		{
+			DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, movablePanel.getAbsoluteTop());
+		} else if (dragMoveDirection == DragMoveDirection.Y_ONLY)
+		{
+			DOMUtil.fastSetElementPosition(movablePanel.getElement(), movablePanel.getAbsoluteLeft(), desiredTop);
+		} else
+		{
+			DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);
+
+		}
+
+		DropController newDropController = getIntersectDropController(context.mouseX, context.mouseY);
+		if (context.dropController != newDropController)
+		{
+			if (context.dropController != null)
+			{
+				context.dropController.onLeave(context);
+			}
+			context.dropController = newDropController;
+			if (context.dropController != null)
+			{
+				context.dropController.onEnter(context);
+			}
+		}
+
+		if (context.dropController != null)
+		{
+			context.dropController.onMove(context);
+		}
+	}
+
+	@Override
+	public void dragEnd()
+	{
+		GWT.log("dragEnd");
+		assert context.finalDropController == null == (context.vetoException != null);
+		if (context.vetoException != null)
+		{
+			context.dropController.onLeave(context);
+			context.dropController = null;
+			if (restoreAnimationEnable)
+			{
+				restoreAnimation.run(200);
+			} else
+			{
+				if (!getBehaviorDragProxy())
+				{
+					restoreSelectedWidgetsLocation();
+				}
+			}
+		} else
+		{
+			context.dropController.onDrop(context);
+			context.dropController.onLeave(context);
+			context.dropController = null;
+		}
+		if (!restoreAnimationEnable)
+		{
+			if (!getBehaviorDragProxy())
+			{
+				restoreSelectedWidgetsStyle();
+			}
+			if (movablePanel != null)
+			{
+				movablePanel.removeFromParent();
+			}
+			movablePanel = null;
+		}
+		super.dragEnd();
+	}
+
+	private boolean restoreAnimationEnable = true;
+
+	public boolean getBehaviorRestoreAnimationEnable()
+	{
+		return restoreAnimationEnable;
+	}
+
+	public void setBehaviorRestoreAnimationEnable(boolean restoreAnimationEnable)
+	{
+		this.restoreAnimationEnable = restoreAnimationEnable;
 	}
 
 	/**
@@ -441,8 +560,10 @@ public class PickupDragController extends AbstractDragController
 
 			if (info.initialDraggableParent instanceof AbsolutePanel)
 			{
-				((AbsolutePanel) info.initialDraggableParent).add(widget, info.initialDraggableParentLocation.getLeft(),
-						info.initialDraggableParentLocation.getTop());
+//				((AbsolutePanel) info.initialDraggableParent).add(widget, info.initialDraggableParentLocation.getLeft(),
+//						info.initialDraggableParentLocation.getTop());
+				((AbsolutePanel) info.initialDraggableParent).insert(widget, info.initialDraggableParentLocation.getLeft(),
+						info.initialDraggableParentLocation.getTop(),info.initialDraggableIndex);
 			} else if (info.initialDraggableParent instanceof InsertPanel)
 			{
 				((InsertPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
@@ -489,6 +610,7 @@ public class PickupDragController extends AbstractDragController
 			if (info.initialDraggableParent instanceof AbsolutePanel)
 			{
 				info.initialDraggableParentLocation = new WidgetLocation(widget, info.initialDraggableParent);
+				info.initialDraggableIndex = ((AbsolutePanel) info.initialDraggableParent).getWidgetIndex(widget);
 			} else if (info.initialDraggableParent instanceof InsertPanel)
 			{
 				info.initialDraggableIndex = ((InsertPanel) info.initialDraggableParent).getWidgetIndex(widget);

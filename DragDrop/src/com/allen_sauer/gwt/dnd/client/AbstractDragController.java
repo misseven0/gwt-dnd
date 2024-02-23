@@ -122,28 +122,6 @@ public abstract class AbstractDragController implements DragController
 	}
 
 	@Override
-	public void clearSelection()
-	{
-		for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();)
-		{
-			Widget widget = iterator.next();
-			widget.removeStyleName(DragClientBundle.INSTANCE.css().selected());
-			iterator.remove();
-		}
-	}
-
-	//////////
-	public void addSelection(Widget draggable)
-	{
-		if (!context.selectedWidgets.contains(draggable))
-		{
-			context.selectedWidgets.add(draggable);
-			draggable.addStyleName(DragClientBundle.INSTANCE.css().selected());
-		}
-	}
-	//////////
-
-	@Override
 	public void dragEnd()
 	{
 		context.draggable.removeStyleName(DragClientBundle.INSTANCE.css().dragging());
@@ -337,6 +315,17 @@ public abstract class AbstractDragController implements DragController
 	}
 
 	@Override
+	public void setBehaviorScrollIntoView(boolean scrollIntoView)
+	{
+		this.scrollIntoView = scrollIntoView;
+	}
+
+	public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel)
+	{
+		setBehaviorConstrainedToBoundaryPanel(constrainWidgetToBoundaryPanel);
+	}
+
+	@Override
 	public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed)
 	{
 		this.multipleSelectionAllowed = multipleSelectionAllowed;
@@ -349,15 +338,34 @@ public abstract class AbstractDragController implements DragController
 	}
 
 	@Override
-	public void setBehaviorScrollIntoView(boolean scrollIntoView)
+	public void clearSelection()
 	{
-		this.scrollIntoView = scrollIntoView;
+		for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();)
+		{
+			Widget widget = iterator.next();
+			if (widget instanceof Selectable)
+			{
+				((Selectable) widget).onUnselected();
+			}
+			widget.removeStyleName(DragClientBundle.INSTANCE.css().selected());
+			iterator.remove();
+		}
 	}
 
-	public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel)
+	//////////
+	public void addSelection(Widget draggable)
 	{
-		setBehaviorConstrainedToBoundaryPanel(constrainWidgetToBoundaryPanel);
+		if (!context.selectedWidgets.contains(draggable))
+		{
+			context.selectedWidgets.add(draggable);
+			if (draggable instanceof Selectable)
+			{
+				((Selectable) draggable).onSelected();
+			}
+			draggable.addStyleName(DragClientBundle.INSTANCE.css().selected());
+		}
 	}
+	//////////
 
 	@Override
 	public void toggleSelection(Widget draggable)
@@ -365,15 +373,18 @@ public abstract class AbstractDragController implements DragController
 		assert draggable != null;
 		if (context.selectedWidgets.remove(draggable))
 		{
+			if (draggable instanceof Selectable)
+			{
+				((Selectable) draggable).onUnselected();
+			}
 			draggable.removeStyleName(DragClientBundle.INSTANCE.css().selected());
 		} else if (multipleSelectionAllowed)
 		{
-			context.selectedWidgets.add(draggable);
-			draggable.addStyleName(DragClientBundle.INSTANCE.css().selected());
+			addSelection(draggable);
 		} else
 		{
-			context.selectedWidgets.clear();
-			context.selectedWidgets.add(draggable);
+			clearSelection();
+			addSelection(draggable);
 		}
 	}
 }

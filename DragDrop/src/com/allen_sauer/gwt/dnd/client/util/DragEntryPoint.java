@@ -14,6 +14,7 @@
 package com.allen_sauer.gwt.dnd.client.util;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.StyleInjector;
 
 /**
@@ -21,15 +22,21 @@ import com.google.gwt.dom.client.StyleInjector;
  */
 public class DragEntryPoint implements EntryPoint
 {
-
+	// $wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
 	private static native void setVersion()
 	/*-{
-	$wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
+		$wnd.$GWT_DND_VERSION = "3.3.4";
+	}-*/;
+
+	private static native String getVersion()
+	/*-{
+		return $wnd.$GWT_DND_VERSION;
 	}-*/;
 
 	@Override
 	public void onModuleLoad()
 	{
+		GWT.log("DragEntryPoint.onModuleLoad:" + getVersion());
 		setVersion();
 		StyleInjector.injectAtStart(DragClientBundle.INSTANCE.css().getText());
 	}

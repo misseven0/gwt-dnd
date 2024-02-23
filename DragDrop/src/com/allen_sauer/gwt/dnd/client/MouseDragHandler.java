@@ -128,6 +128,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 	@Override
 	public void onMouseDown(MouseDownEvent event)
 	{
+		event.stopPropagation();
+		
 		// *******************************************************************
 		// Note: the draggable (or its draghandle) receives mouse down events,
 		// but the capturing widget will receive mouse move/up events.
